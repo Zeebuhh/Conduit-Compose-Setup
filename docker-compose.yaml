@@ -3,6 +3,8 @@ services:
     build:
       context: ./conduit-frontend
       dockerfile: Dockerfile
+      args:
+        - CONFIGURATION=${CONFIGURATION}
     ports:
       - 8282:80
     depends_on:
