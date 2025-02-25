@@ -48,7 +48,7 @@ The repository provides all necessary configuration files and scripts to streaml
    git submodule add https://github.com/Zeebuhh/conduit-backend.git # conduit-backend
    ```
 3. **Ensure required configuration files are in place:**
-   - `.env` for environment variables. For instance: [example.env](./example.env).
+   - `.env` for environment variables. For instance: [example.env](./example.env). To use the example.env simply remove 'example' from the file to make it functional or change env_file path in the yaml-file.
    - `.gitignore` to exclude unnecessary files.
    - `.dockerignore` to ignore unneeded files during image builds.
 4. **Build and start the application:**
