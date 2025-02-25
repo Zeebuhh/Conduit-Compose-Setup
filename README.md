@@ -38,17 +38,17 @@ The repository provides all necessary configuration files and scripts to streaml
 1. **Clone the repository:**
    ```bash
    #bash
-   git clone https://github.com/your-repo/conduit-compose-setup.git
+   git clone https://github.com/Zeebuhh/Conduit-Compose-Setup.git
    cd conduit-compose-setup
    ```
 2. **Add the frontend and backend repositories as submodules:**
    ```bash
    #bash
-   git submodule add <frontend-repo-url> conduit-frontend
-   git submodule add <backend-repo-url> conduit-backend
+   git submodule add https://github.com/Zeebuhh/conduit-frontend.git # conduit-frontend
+   git submodule add https://github.com/Zeebuhh/conduit-backend.git # conduit-backend
    ```
 3. **Ensure required configuration files are in place:**
-   - `.env` for environment variables.
+   - `.env` for environment variables. For instance: [example.env](./example.env).
    - `.gitignore` to exclude unnecessary files.
    - `.dockerignore` to ignore unneeded files during image builds.
 4. **Build and start the application:**
@@ -75,12 +75,13 @@ This section details the configuration and customization options available in th
 - **Dockerfiles:**
 
   - **Frontend Dockerfile:**  
-    Builds the Angular application and serves it using Nginx. You can modify build arguments or adjust the Nginx configuration to change caching policies and static file handling.
+    [Frontend-Dockerfile](./conduit-frontend/Dockerfile)
   - **Backend Dockerfile:**  
-    Sets up the Python environment, installs dependencies, and starts the Django development server. Customize this file if additional Python packages or environment settings are needed.
+    [Backend-Dockerfile](./conduit-backend/Dockerfile)
 
-- **Entry Point Script (`entrypoint.sh`):**  
-  Executes necessary startup tasks such as database migrations and superuser creation. Modify this script to include additional initialization tasks, such as loading seed data or executing custom commands.
+- **Entry Point Script (`entrypoint.sh`):**
+
+  - [Entrypoint-script](./conduit-backend/entrypoint.sh)
 
 - **Backend Settings:**  
   Update Django settings (e.g., adjusting `ALLOWED_HOSTS`) to reflect your development or production environment.
