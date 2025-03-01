@@ -3,7 +3,7 @@ name: Deployment Workflow
 on:
   push:
     branches:
-      - main
+      - Zeebuhh-patch-1
 
 jobs:
   deploy:
