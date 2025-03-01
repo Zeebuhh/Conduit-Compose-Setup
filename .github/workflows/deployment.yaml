@@ -18,8 +18,8 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script_stop: true
           script: |
+            set -e
             mkdir -p /Conduit-Compose-Setup
             cd /Conduit-Compose-Setup
 
