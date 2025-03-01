@@ -1,0 +1,34 @@
+name: Deployment Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: SSH Deployment
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script_stop: true
+          script: |
+            mkdir -p /Conduit-Compose-Setup
+            cd /Conduit-Compose-Setup
+
+            if [ ! -d ".git" ]; then
+              git clone https://github.com/Zeebuhh/Conduit-Compose-Setup.git .
+            else
+              git pull origin main
+              git submodule update --init --recursive
+            fi
+
+            docker-compose down
+            docker-compose up -d --build
