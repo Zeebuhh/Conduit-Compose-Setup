@@ -1,0 +1,26 @@
+services:
+  conduit-frontend:
+    build:
+      context: ./conduit-frontend
+      dockerfile: Dockerfile
+    ports:
+      - 8282:80
+    env_file:
+      - .env
+    restart: on-failure
+  conduit-backend:
+    build:
+      context: ./conduit-backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - static:/app/static
+      - media:/app/media
+    restart: on-failure
+
+volumes:
+  static:
+  media:

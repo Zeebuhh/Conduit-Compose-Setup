@@ -1,0 +1,12 @@
+# Git
+.git
+.gitignore
+
+# Docker
+docker-compose.yml
+.docker
+
+# Virtual environment
+.env/
+.venv/
+venv/
