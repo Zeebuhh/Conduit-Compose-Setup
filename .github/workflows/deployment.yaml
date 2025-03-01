@@ -22,8 +22,8 @@ jobs:
 
             set -e
 
-            mkdir -p /Conduit-Compose-Setup
-            cd /Conduit-Compose-Setup
+            mkdir -p ~/Conduit-Compose-Setup
+            cd ~/Conduit-Compose-Setup
 
             if [ ! -d ".git" ]; then
               git clone https://github.com/Zeebuhh/Conduit-Compose-Setup.git .
