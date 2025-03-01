@@ -19,6 +19,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+
             set -e
 
             mkdir -p /Conduit-Compose-Setup
