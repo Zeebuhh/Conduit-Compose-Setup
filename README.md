@@ -6,6 +6,7 @@
 - [Project Structure](#project-structure)
 - [Quickstart](#quickstart)
 - [Usage](#usage)
+- [Deployment](#deployment)
 - [Troubleshooting](#troubleshooting)
 
 ## Description
@@ -37,15 +38,13 @@ The repository provides all necessary configuration files and scripts to streaml
 
 1. **Clone the repository:**
    ```bash
-   #bash
    git clone https://github.com/Zeebuhh/Conduit-Compose-Setup.git
    cd conduit-compose-setup
    ```
 2. **Add the frontend and backend repositories as submodules:**
    ```bash
-   #bash
-   git submodule add https://github.com/Zeebuhh/conduit-frontend.git # conduit-frontend
-   git submodule add https://github.com/Zeebuhh/conduit-backend.git # conduit-backend
+   git submodule add https://github.com/Zeebuhh/conduit-frontend.git
+   git submodule add https://github.com/Zeebuhh/conduit-backend.git
    ```
 3. **Ensure required configuration files are in place:**
    - `.env` for environment variables. For instance: [example.env](./example.env). To use the example.env use `cp example.env .env` to rename it.
@@ -53,13 +52,10 @@ The repository provides all necessary configuration files and scripts to streaml
    - `.dockerignore` to ignore unneeded files during image builds.
 4. **Build and start the application:**
    ```bash
-   #bash
    docker-compose up --build
    ```
 
 ## Usage
-
-This section details the configuration and customization options available in the repository.
 
 ### Configuration Details
 
@@ -93,11 +89,40 @@ This section details the configuration and customization options available in th
 - **Changing Application Behavior:**  
   Both the frontend and backend components are managed as submodules. Modify the source code in these submodules as needed, then rebuild the images using:
   ```bash
-  #bash
   docker-compose up --build
   ```
 - **Adding Additional Services:**  
   If you need to add more services (e.g., a database or caching layer), update the `docker-compose.yaml` and add the necessary configuration in the `.env` file.
+
+## Deployment
+
+### Overview
+
+The deployment process is automated using GitHub Actions. When changes are pushed to the `Zeebuhh-patch-1` branch, the workflow updates the application on a remote server via SSH.
+
+### Prerequisites
+
+- A server with SSH access where Docker and Docker Compose are installed.
+- The following GitHub Secrets must be configured:
+  - `SSH_HOST`: The server’s IP address or domain.
+  - `SSH_USER`: The SSH username.
+  - `SSH_PRIVATE_KEY`: The private SSH key for authentication.
+  - `SSH_PORT` (optional, by default it's 22 for SSH)
+
+### Workflow Steps
+
+1. **Triggered on push to `Zeebuhh-patch-1`.**
+2. **Checks out the repository.**
+3. **Establishes an SSH connection to the server.**
+4. **Clones the repository if it does not exist or pulls updates.**
+5. **Runs `docker-compose down` to stop existing containers.**
+6. **Rebuilds and restarts containers with `docker-compose up -d --build`.**
+
+### Modifications
+
+- **Branch Configuration:** Change the branch in the workflow file if a different branch should trigger the deployment.
+- **Additional Services:** Update the `docker-compose.yaml` file to include new services if needed.
+- **Post-Deployment Steps:** If additional setup is required after deployment, extend the SSH script accordingly.
 
 ## Troubleshooting
 
@@ -105,16 +130,13 @@ Common commands to diagnose and resolve issues:
 
 - **View logs:**
   ```bash
-  #bash
   docker-compose logs
   ```
 - **Rebuild containers:**
   ```bash
-  #bash
   docker-compose up --build
   ```
 - **Remove stopped containers and volumes:**
   ```bash
-  #bash
   docker-compose down -v
   ```
