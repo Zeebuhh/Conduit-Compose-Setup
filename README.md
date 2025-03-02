@@ -38,13 +38,15 @@ The repository provides all necessary configuration files and scripts to streaml
 
 1. **Clone the repository:**
    ```bash
+   #bash
    git clone https://github.com/Zeebuhh/Conduit-Compose-Setup.git
    cd conduit-compose-setup
    ```
 2. **Add the frontend and backend repositories as submodules:**
    ```bash
-   git submodule add https://github.com/Zeebuhh/conduit-frontend.git
-   git submodule add https://github.com/Zeebuhh/conduit-backend.git
+   #bash
+   git submodule add https://github.com/Zeebuhh/conduit-frontend.git #frontend
+   git submodule add https://github.com/Zeebuhh/conduit-backend.git #backend
    ```
 3. **Ensure required configuration files are in place:**
    - `.env` for environment variables. For instance: [example.env](./example.env). To use the example.env use `cp example.env .env` to rename it.
@@ -52,6 +54,7 @@ The repository provides all necessary configuration files and scripts to streaml
    - `.dockerignore` to ignore unneeded files during image builds.
 4. **Build and start the application:**
    ```bash
+   #bash
    docker-compose up --build
    ```
 
@@ -89,6 +92,7 @@ The repository provides all necessary configuration files and scripts to streaml
 - **Changing Application Behavior:**  
   Both the frontend and backend components are managed as submodules. Modify the source code in these submodules as needed, then rebuild the images using:
   ```bash
+  #bash
   docker-compose up --build
   ```
 - **Adding Additional Services:**  
@@ -130,13 +134,16 @@ Common commands to diagnose and resolve issues:
 
 - **View logs:**
   ```bash
+  #bash
   docker-compose logs
   ```
 - **Rebuild containers:**
   ```bash
+  #bash
   docker-compose up --build
   ```
 - **Remove stopped containers and volumes:**
   ```bash
+  #bash
   docker-compose down -v
   ```
