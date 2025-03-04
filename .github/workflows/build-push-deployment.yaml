@@ -39,6 +39,7 @@ jobs:
           script: |
             cd ~/Conduit-Compose-Setup
             git pull origin Zeebuhh-patch-1
+            docker login ghcr.io -u Zeebuhh -p "${{ secrets.GHCR_PAT }}"
             docker-compose down
             docker-compose pull
             docker-compose up -d
