@@ -111,16 +111,21 @@ The deployment process is automated using GitHub Actions. When changes are pushe
   - `SSH_HOST`: The server’s IP address or domain.
   - `SSH_USER`: The SSH username.
   - `SSH_PRIVATE_KEY`: The private SSH key for authentication.
-  - `SSH_PORT` (optional, by default it's 22 for SSH)
+  - `SSH_PORT`: (optional, by default it's 22 for SSH)
+  - `GHCR_PAT`: A Personal Access Token (PAT) with package permissions for GitHub Container Registry.
 
 ### Workflow Steps
 
 1. **Triggered on push to `Zeebuhh-patch-1`.**
-2. **Checks out the repository.**
-3. **Establishes an SSH connection to the server.**
-4. **Clones the repository if it does not exist or pulls updates.**
-5. **Runs `docker-compose down` to stop existing containers.**
-6. **Rebuilds and restarts containers with `docker-compose up -d --build`.**
+2. **Checks out the repository, including submodules.**
+3. **Authenticates with GitHub Container Registry (GHCR).**
+4. **Builds and pushes Docker images for frontend and backend.**
+5. **Establishes an SSH connection to the server.**
+6. **Fetches the latest code from the Zeebuhh-patch-1 branch.**
+7. **Authenticates the server’s Docker daemon with GHCR.**
+8. **Runs docker-compose down to stop existing containers.**
+9. **Pulls the latest images from GHCR.**
+10. **Restarts the application with docker-compose up -d**
 
 ### Modifications
 

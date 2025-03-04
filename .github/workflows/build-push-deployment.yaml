@@ -38,6 +38,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ~/Conduit-Compose-Setup
+            git fetch origin
+            git checkout Zeebuhh-patch-1
             git pull origin Zeebuhh-patch-1
             docker login ghcr.io -u Zeebuhh -p "${{ secrets.GHCR_PAT }}"
             docker-compose down
