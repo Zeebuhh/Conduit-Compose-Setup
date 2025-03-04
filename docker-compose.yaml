@@ -1,17 +1,14 @@
 services:
   conduit-frontend:
-    build:
-      context: ./conduit-frontend
-      dockerfile: Dockerfile
+    image: ghcr.io/Zeebuhh/conduit-frontend:latest
     ports:
-      - 8282:80
+      - "8282:80"
     env_file:
       - .env
     restart: on-failure
+
   conduit-backend:
-    build:
-      context: ./conduit-backend
-      dockerfile: Dockerfile
+    image: ghcr.io/Zeebuhh/conduit-backend:latest
     ports:
       - "8000:8000"
     env_file:
