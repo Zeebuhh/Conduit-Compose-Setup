@@ -15,12 +15,14 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Build und Push conduit-frontend
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/conduit-frontend:latest ./conduit-frontend
-          docker push ghcr.io/${{ github.repository_owner }}/conduit-frontend:latest
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          docker build -t ghcr.io/${OWNER}/conduit-frontend:latest ./conduit-frontend
+          docker push ghcr.io/${OWNER}/conduit-frontend:latest
       - name: Build und Push conduit-backend
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/conduit-backend:latest ./conduit-backend
-          docker push ghcr.io/${{ github.repository_owner }}/conduit-backend:latest
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          docker build -t ghcr.io/${OWNER}/conduit-backend:latest ./conduit-backend
+          docker push ghcr.io/${OWNER}/conduit-backend:latest
 
   deploy:
     runs-on: ubuntu-latest
