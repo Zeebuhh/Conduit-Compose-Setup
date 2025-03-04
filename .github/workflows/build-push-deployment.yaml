@@ -16,12 +16,12 @@ jobs:
       - name: Build und Push conduit-frontend
         run: |
           OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-          docker build -t ghcr.io/${OWNER}/conduit-frontend:latest ../../conduit-frontend
+          docker build -t ghcr.io/${OWNER}/conduit-frontend:latest -f ./conduit-frontend/Dockerfile ./conduit-frontend
           docker push ghcr.io/${OWNER}/conduit-frontend:latest
       - name: Build und Push conduit-backend
         run: |
           OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-          docker build -t ghcr.io/${OWNER}/conduit-backend:latest ../../conduit-backend
+          docker build -t ghcr.io/${OWNER}/conduit-backend:latest -f ./conduit-backend/Dockerfile ./conduit-backend
           docker push ghcr.io/${OWNER}/conduit-backend:latest
 
   deploy:
