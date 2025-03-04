@@ -1,6 +1,6 @@
 services:
   conduit-frontend:
-    image: ghcr.io/Zeebuhh/conduit-frontend:latest
+    image: ghcr.io/zeebuhh/conduit-frontend:latest
     ports:
       - "8282:80"
     env_file:
@@ -8,7 +8,7 @@ services:
     restart: on-failure
 
   conduit-backend:
-    image: ghcr.io/Zeebuhh/conduit-backend:latest
+    image: ghcr.io/zeebuhh/conduit-backend:latest
     ports:
       - "8000:8000"
     env_file:
