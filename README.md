@@ -120,10 +120,10 @@ The deployment process is automated using GitHub Actions. When changes are pushe
 2. **Checks out the repository, including submodules.**
 3. **Authenticates with GitHub Container Registry (GHCR).**
 4. **Builds and pushes Docker images for frontend and backend.**
-5. **Establishes an SSH connection to the server.**
-6. **Fetches the latest code from the Zeebuhh-patch-1 branch.**
+5. **Authenticates with GHCR and sends the docker-compose.yaml to VM via scp**
+6. **Establishes an SSH connection to the server.**
 7. **Authenticates the server’s Docker daemon with GHCR.**
-8. **Runs docker-compose down to stop existing containers.**
+8. **Runs docker-compose down to stop existing containers and existing images.**
 9. **Pulls the latest images from GHCR.**
 10. **Restarts the application with docker-compose up -d**
 
