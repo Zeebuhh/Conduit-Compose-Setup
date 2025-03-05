@@ -119,7 +119,7 @@ The deployment process is automated using GitHub Actions. When changes are pushe
 1. **Triggered on push to `Zeebuhh-patch-1`.**
 2. **Checks out the repository, including submodules.**
 3. **Authenticates with GitHub Container Registry (GHCR).**
-4. **Builds and pushes Docker images for frontend and backend.**
+4. **Changes Github Owner-name to lowercase and builds and pushes Docker images for frontend and backend.**
 5. **Authenticates with GHCR and sends the docker-compose.yaml to VM via scp**
 6. **Establishes an SSH connection to the server.**
 7. **Authenticates the server’s Docker daemon with GHCR.**

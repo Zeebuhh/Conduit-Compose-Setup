@@ -21,19 +21,22 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_PAT }}
 
+      - name: Convert repository owner to lowercase
+        run: echo "REPO_OWNER_LOWER=$(echo ${{ github.repository_owner }} | tr [:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - name: Build and push conduit-frontend
         uses: docker/build-push-action@v4
         with:
           context: ./conduit-frontend
           push: true
-          tags: ghcr.io/$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')/conduit-frontend:latest
+          tags: ghcr.io/${{ env.REPO_OWNER_LOWER }}/conduit-frontend:latest
 
       - name: Build and push conduit-backend
         uses: docker/build-push-action@v4
         with:
           context: ./conduit-backend
           push: true
-          tags: ghcr.io/$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')/conduit-backend:latest
+          tags: ghcr.io/${{ env.REPO_OWNER_LOWER }}/conduit-backend:latest
 
   deploy:
     runs-on: ubuntu-latest
