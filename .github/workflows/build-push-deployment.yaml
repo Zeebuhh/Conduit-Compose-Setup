@@ -47,6 +47,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "./docker-compose.yaml"
           target: "~/Conduit-Compose-Setup/docker-compose.yaml"
+          overwrite: true
 
       - name: Deploy application via SSH
         uses: appleboy/ssh-action@v0.1.7
