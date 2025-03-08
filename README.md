@@ -6,6 +6,7 @@
 - [Project Structure](#project-structure)
 - [Quickstart](#quickstart)
 - [Usage](#usage)
+- [Deployment](#deployment)
 - [Troubleshooting](#troubleshooting)
 
 ## Description
@@ -44,8 +45,8 @@ The repository provides all necessary configuration files and scripts to streaml
 2. **Add the frontend and backend repositories as submodules:**
    ```bash
    #bash
-   git submodule add https://github.com/Zeebuhh/conduit-frontend.git # conduit-frontend
-   git submodule add https://github.com/Zeebuhh/conduit-backend.git # conduit-backend
+   git submodule add https://github.com/Zeebuhh/conduit-frontend.git #frontend
+   git submodule add https://github.com/Zeebuhh/conduit-backend.git #backend
    ```
 3. **Ensure required configuration files are in place:**
    - `.env` for environment variables. For instance: [example.env](./example.env). To use the example.env use `cp example.env .env` to rename it.
@@ -58,8 +59,6 @@ The repository provides all necessary configuration files and scripts to streaml
    ```
 
 ## Usage
-
-This section details the configuration and customization options available in the repository.
 
 ### Configuration Details
 
@@ -98,6 +97,41 @@ This section details the configuration and customization options available in th
   ```
 - **Adding Additional Services:**  
   If you need to add more services (e.g., a database or caching layer), update the `docker-compose.yaml` and add the necessary configuration in the `.env` file.
+
+## Deployment
+
+### Overview
+
+The deployment process is automated using GitHub Actions. When changes are pushed to the `Zeebuhh-patch-1` branch, the workflow updates the application on a remote server via SSH.
+
+### Prerequisites
+
+- A server with SSH access where Docker and Docker Compose are installed.
+- The following GitHub Secrets must be configured:
+  - `SSH_HOST`: The server’s IP address or domain.
+  - `SSH_USER`: The SSH username.
+  - `SSH_PRIVATE_KEY`: The private SSH key for authentication.
+  - `SSH_PORT`: (optional, by default it's 22 for SSH)
+  - `GHCR_PAT`: A Personal Access Token (PAT) with package permissions for GitHub Container Registry.
+
+### Workflow Steps
+
+1. **Triggered on push to `Zeebuhh-patch-1`.**
+2. **Checks out the repository, including submodules.**
+3. **Authenticates with GitHub Container Registry (GHCR).**
+4. **Builds and pushes Docker images for frontend and backend.**
+5. **Authenticates with GHCR and sends the docker-compose.yaml to VM via scp**
+6. **Establishes an SSH connection to the server.**
+7. **Authenticates the server’s Docker daemon with GHCR.**
+8. **Runs docker-compose down to stop existing containers and existing images.**
+9. **Pulls the latest images from GHCR.**
+10. **Restarts the application with docker-compose up -d**
+
+### Modifications
+
+- **Branch Configuration:** Change the branch in the workflow file if a different branch should trigger the deployment.
+- **Additional Services:** Update the `docker-compose.yaml` file to include new services if needed.
+- **Post-Deployment Steps:** If additional setup is required after deployment, extend the SSH script accordingly.
 
 ## Troubleshooting
 
